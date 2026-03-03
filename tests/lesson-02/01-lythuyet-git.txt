@@ -1,0 +1,4 @@
+git init                - khởi tạo 1 Git Repository
+git add <file_name>     - đưa file được "add" vào hàng chờ để lưu trữ
+git add .               - đưa tất cả file vào hàng chờ
+git commit -m "message" - lưu tất cả file đang ở hàng chờ vào repo với ghi chú là "message"

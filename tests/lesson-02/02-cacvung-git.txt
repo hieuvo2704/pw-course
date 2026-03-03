@@ -1,0 +1,3 @@
+file 1 - đã được lưu lên repo
+file 2 - đang ở working directory vì chưa đc add vào "staging area" và chưa đc commit
+file 3 - đang ở working directory vì chưa đc add vào "staging area" và chưa đc commit
