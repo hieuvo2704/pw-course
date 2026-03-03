@@ -44,11 +44,11 @@
 "git log" (kiểm tra danh sách commit)
 ```
 
-![Git commands](E:\VSCodeProjects\K22\pw-course\tests\lesson-02\git_command.png)
+![Git commands](images/git_command.png)
 
-![Git 3 stages](E:\VSCodeProjects\K22\pw-course\tests\lesson-02\git.png)
+![Git 3 stages](images/git.png)
 
-![Git & Github](E:\VSCodeProjects\K22\pw-course\tests\lesson-02\Git_vs_Github.png)
+![Git & Github](images/Git_vs_Github.png)
 
 
 ### 1.3 "commit" convention
@@ -70,7 +70,7 @@
 "fix: fix automation for case 1"
 ```
 
-![git simple flow](E:\VSCodeProjects\K22\pw-course\tests\lesson-02\git_simple_flow.png)
+![git simple flow](images/git_simple_flow.png)
 
 ## JavaScript
 
