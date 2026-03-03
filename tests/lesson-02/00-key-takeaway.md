@@ -44,6 +44,8 @@
 "git log" (kiểm tra danh sách commit)
 ```
 
+![Git commands](E:\VSCodeProjects\K22\pw-course\tests\lesson-02\git_command.png)
+
 ![Git 3 stages](E:\VSCodeProjects\K22\pw-course\tests\lesson-02\git.png)
 
 ![Git & Github](E:\VSCodeProjects\K22\pw-course\tests\lesson-02\Git_vs_Github.png)
