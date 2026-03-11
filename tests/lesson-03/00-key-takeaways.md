@@ -4,210 +4,257 @@
 
 ### 1.1 Undo action ###
 
-**Config chung**
+>**Thay đổi commit message khi commit sai**
+
+- Thay đổi commit mới nhất
 
 ```powershell
-- Config username
-    git config --global user.name "<name>"
-- Config email
-    git config --global user.email "<email>"
-- Config branch default '(config nhánh mặc định)'
-    git config --global init.defaultBranch main
+git commit --amend -m "<message mới>"
+
+Ex: git commit --amend -m "feat: add feature"
 ```
 
-**Config riêng**
-```bash
-- Config username
-    git config user.name "<name>"
-- Config email
-    git config user.email "<email>"
+>**`Un-stage` 1 file (từ staging -> working directory)**
+
+- Un-stage 1 file cụ thể
+
+```markdown
+git restore --staged <file>
 ```
+
+- Un-stage tất cả các file
+
+```markdown
+git restore --staged .
+```
+
+>**"`Un-commit` 1 file"**
+
+- Từ repository -> staging (đưa nội dung commit cuối về staging)
+
+```markdown
+git reset --soft HEAD~1
+```
+
+- Từ repository -> working directory (đưa nội dung commit cuối về working directory)
+
+```markdown
+git reset HEAD~1
+```
+
+ ***!!! Note !!!***
+
+ ```markdown
+- Commit đầu tiên không thể bị reset
+- Nếu muốn reset -> xóa thư mục .git rồi chạy init lại
+```
+
 ### 1.2 Branching ###
 
-```markdown
-1. tạo repo (public) trên Github web
-2. Khởi tạo
-- git init (chỉ làm lần đầu khi setup)
-- git remote add origin <repo github link> (chỉ làm lần đầu khi setup)
-- git add .
-- git commit -m "init project"
-3. Push code
-- git push origin main
-```
-```powershell
-"git status" (xem trạng thái file)
-- File màu 'xanh': vùng 'staging' (sau khi đã add)
-- File màu 'đỏ': vùng w'orking directory' (chưa đc add)
+```bash
+- "Main" là nhánh chính, "Branch" cho phép tạo ra nhánh phụ để:
+  + Phát triển tính năng mới mà không ảnh hưởng tới nhánh chính đang chạy ổn định
+  + Làm việc trong team, không ảnh hưởng và đè code của người khác
+  + Thử nghiệm (testing), nếu hỏng thì xóa nhanh mà không ảnh hưởng gì
 ```
 
-```powershell
-"git log" (kiểm tra danh sách commit)
-```
+>**Các câu lệnh trong Git - branching**
 
-![Git commands](images/git_command.png)
-
-![Git 3 stages](images/git.png)
-
-![Git & Github](images/Git_vs_Github.png)
-
-
-### 1.3 .gitignore
+- Xem danh sách các nhánh (cần có ít nhất 1 nhánh mới hiện danh sách nhánh)
 
 ```markdown
-<type>: <short_description>
+git branch
 ```
-- **Type**:
-    - chore: sửa nhỏ lẻ, chính tả, xóa file không dùng tới
-    - feat: thêm tính năng mới, test case mới
-    - fix: sữa lỗi 1 test trước đó
-- **short_description**: mô tả ngắn gọn (tiếng Anh hoặc tiếng Việt không dấu)
+- Chỉ tạo nhánh, chưa chuyển sang
 
-*Example:*
-
-```ts
-"chore: remove unused file"
-"feat: add code for"
-"fix: fix automation for case 1"
+```markdown
+git branch feature/login
 ```
 
-![git simple flow](images/git_simple_flow.png)
+- Chuyển sang nhánh vừa tạo
+
+```markdown
+git checkout <branch_name>
+```
+
+- Vừa tạo, vừa chuyển nhánh
+
+```markdown
+git checkout -b <branch_name>
+```
+
+- Xóa nhánh (Đứng ở `nhánh khác` trước khi xóa)
+
+```markdown
+git branch -D <tên nhánh>
+```
+
+- Đưa nhánh lên online (remote)
+
+```markdown
+git push origin <tên_nhánh>
+```
+
+- Xóa nhanh trên online (remote)
+
+```markdown
+git push -D origin <tên_nhánh>
+```
+
+### 1.3 `.gitignore`
+
+```markdown
+Dùng gitignore để:
+ - Bỏ các file "nặng", file thư viện bằng cách cấu hình cho Git biết những file nào 'không cần theo dõi' (untracked by Git)
+ - Bỏ các file credentials
+```
+```markdown
+# Comment - dòng bắt đầu bằng "#" là ghi chú
+```
+
+```markdown
+# Ignore file cụ thể
+secret.txt
+```
+
+```markdown
+# Ignore tất cả file có extension .log
+*.log
+```
+
+```markdown
+# Ignore thư mục
+node_modules/
+build/
+```
+
+```markdown
+# Ignore file trong thư mục con
+**/*.tmp
+```
+
+```markdown
+# Ngoại lệ - Không ignore file này thì dùng "!"
+!important.log
+```
+
+```markdown
+# Ignore file chỉ ở thư mục gốc
+/TODO
+```
+
+```markdown
+# Ignore tất cả file .txt trong thư mục doc/
+doc/**/*.txt
+```
 
 ## 2. JavaScript
 
-### 2.1 Biến & Hằng (let & const)
+### 2.1 Câu điều kiện `if`
 
-> **Biến (let)** - dùng khi cần gán giá trị
+```markdown
+Nếu đúng điều kiện thì mới chạy
+```
+
+**Examples:**
 
 ```ts
-let <tên biến> = <giá trị>;
-let myName = "Hieu";
+let hour = 8;
+if (hour <= 11) {
+    console.log(“Good morning”);
+}
 ```
 
-> **Hằng (const)** - dùng khi xác định giá trị không đổi
+*kết hợp nhiều điều kiện*
 
 ```ts
-const <tên hằng> = <giá trị>;
-const pi = 3.14;
+let hour = 8;
+if (hour >= 6 && hour <= 11) {
+    console.log(“Good morning”);
+}
 ```
 
-### 2.2 Data type
-
-**1. Number** - số nguyên và số thực (không phân biệt int/float)
+*Kết hợp nhiều điều kiện - `nested condition`*
 
 ```ts
-const age = 25; // số nguyên
-const price = 10.99; // số thực
-const infinity = Infinity; // vô hạn
-const notANumber = NaN; // không phải là số
+let hour = 8;
+if (hour >= 6) {
+    if (hour <= 11) {
+        console.log(“Good morning”);
+    }
+}
 ```
 
-**2. String** - chuỗi ký tự
+### 2.2 Vòng lặp `for`
+
+```markdown
+- Vòng lặp dùng để lặp lại 1 đoạn logic.
+- Có thể lặp một số lần nhất định, hoặc lặp vô hạn, tuỳ theo điều kiện dừng
+```
+> for (i)
 
 ```ts
-const name = "Ryan"; // dùng nháy kép
-const message = 'Hello'; // dùng nháy đơn
-const template = `Age: 10`; // dùng "backtick" (dấu huyền cạnh số 1)
+for (let i = 0; i < 5; i++) {
+    console.log("xin chào!");
+}
 ```
 
-**3. Boolean** - giá trị logic
+### 2.3 Convention - quy tắc
+
+```markdown
+Convention giúp:
+    - Code theo format chung, dễ nhìn
+    - Người khác trong team dễ đọc code
+Có nhiều loại Convention:
+    - Đặt tên file/folder
+    - Đặt tên biến
+    - Đặt tên class
+```
+
+`snake case` - tất cả các chữ viết thường, cách nhau bởi dấu gạch dưới
 
 ```ts
-const isActive =  true; // giá trị đúng
-const isComplete = false; // giá trị sai
+vo_minh_hieu
 ```
+
+`kebab-case` - tất cả các chữ viết thường, cách nhau bởi dấu gạch ngang
 
 ```ts
-hàm typeof <variable> dùng để biết 1 biến có kiểu dữ liệu là gì
+vo-minh-hieu
 ```
 
-### 2.3 Toán tử so sánh
-
-**2.3.1 So sánh bằng**
-> '==' và '==='
-
-So sánh hai bằng == (Loose Equality) - *So sánh giá trị sau khi chuyển đổi kiểu (type coercion)*
+`camelCase` - chữ đầu viết thường, các chữ sau viết hoa chữ cái đầu tiên
 
 ```ts
-5 == "5" // true (chuyển string thành number)
-5 == "6" // false (chuyển string thành number)
-true == 1 // true (true chuyển thành 1)
-false == 0 // true (false chuyển thành 0)
+voMinhHieu
 ```
 
-So sánh ba bằng === (Strict Equality) (nên dùng) - *So sánh giá trị và kiểu dữ liệu - không chuyển đổi kiểu*
+`PascalCase` - tất cả các chữ cái đầu viết hoa
 
 ```ts
-5 === "5" // false (khác kiểu)
-true === 1 // false (khác kiểu)
-false === 0 // false (khác kiểu)
-5 === 5 // true (cùng kiểu, cùng giá trị)
+VoMinhHieu
 ```
-    
-**2.3.2 So sánh không bằng**
-> '!=' và '!=='
+
+![Convention](images/convention.png)
+
+### `console.log` nâng cao
+
+> Sử dụng nháy đơn `''` nháy kép `""`
+
+``` ts
+console.log('hello world!');
+console.log("hello world!");
+```
+
+> Sử dụng kèm variable
 
 ```ts
-5 != "5" // false (chuyển string thành number)
-true != 1 // false (true chuyển thành 1)
-false != 0 // false (false chuyển thành 0)
+let name = "Hieu";
+console.log(`Toi la ${name}`);
 ```
+
+> Sử dụng cộng chuỗi
 
 ```ts
-5 !== "5" // true (khác kiểu)
-true !== 1 // true (khác kiểu)
-false !== 0 // true (khác kiểu)
-5 !== 5 // false (cùng kiểu, cùng giá trị)
-```
-
-**2.3.3 So Sánh hơn**
-> '>', '<', '<=', '>='
-
-```ts
-5 > 10 // false
-5 >= 10 // false
-5 < 10 // true
-5 <= 10 // true
-```
-
-### 2.4 Toán tử Logic
-
-```ts
-- && (AND): trả về đúng nếu cả 2 vế của mệnh đề đúng
-- || (OR): trả về đúng nếu một trong 2 vế của mệnh đề đúng
-```
-
-| A | B | A AND B | A OR B |
-|---|---|--------|--------|
-| **True** | **True** | **True** | **True** |
-| **True** | False | False | **True** |
-| False | **True** | False | **True** |
-| False | False | False | False |
-
-### 2.4.1 Toán tử 1 ngôi
-- Toán tử một ngôi là toán tử **chỉ cần một toán hạng** để thực hiện.
-
-> **Prefix**: toán tử nằm ở phía trước - **tăng trước, trả giá trị về sau**
-
-```
-- ++x;
-- --x;
-```
-
-> **Postfix**: toán tử nằm ở phía sau - **trả giá trị về trước, tăng sau**
-
-```ts
-- x++;
-- x--;
-```
-*Example:*
-
-```ts
-let a = 10;
-b = ++a; // tăng a lên 11 rồi trả về 
-        // => b có giá trị là 11
-
-let c = 10;
-d = c++; // trả về giá trị 10 cho d rồi mới tăng
-        // => d có giá trị là 10
-        // khi này nếu in c ra thì c có giá trị là 11 
+console.log("Toi ten la " + name);
 ```
