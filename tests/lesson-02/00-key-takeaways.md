@@ -51,7 +51,7 @@
 ![Git & Github](images/Git_vs_Github.png)
 
 
-### 1.3 "commit" convention
+### 1.3 "`commit`" convention
 
 ```markdown
 <type>: <short_description>
